@@ -1,0 +1,36 @@
+@use "../../styles/abstract.scss" as *;
+
+.tag-carousel {
+  //   background-color: rgba($color: $bg-light-color, $alpha: 0.5);
+  //   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 0;
+  border-radius: $border-radius-3;
+
+  .tag-carousel__slide {
+    background-color: rgba($color: $bg-light-color, $alpha: 0.5);
+    width: auto !important;
+    // padding: 0 1rem;
+    // padding: 0.5rem;
+    border-radius: $border-radius-3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.875rem;
+    // letter-spacing: 1px;
+    // font-weight: 300;
+    color: $text-lightest;
+    cursor: pointer;
+    // margin-left: 0.5rem;
+    user-select: none;
+
+    &:hover {
+      color: $text;
+    }
+  }
+
+  .tag-carousel__slide.active {
+    background-color: $menu-highlight;
+    font-weight: bold;
+    color: $text;
+  }
+}

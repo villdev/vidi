@@ -1,0 +1,110 @@
+@use "../../styles//abstract.scss" as *;
+
+.avatar-wrapper {
+  position: relative;
+
+  button {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    color: $text;
+  }
+
+  .account-context-menu {
+    // padding: 0;
+    background-color: transparent;
+    border-radius: $border-radius;
+
+    .account-context-menu__item {
+      margin: 0;
+      margin-right: 2rem;
+      padding: 0;
+      border-radius: $border-radius;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+.context-menu-wrapper {
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  // position: absolute;
+  // //   top: calc(100% + 0.5rem);
+  // top: 100%;
+  // right: 0;
+  //   background-color: $menu-highlight;
+  background-color: $menu-color;
+  border-radius: $border-radius;
+  padding: 1rem 0.5rem;
+
+  .account-details {
+    display: flex;
+    padding: 0.15rem 0.875rem;
+    // background-color: red;
+    border-radius: $border-radius-3;
+    display: flex;
+    align-items: center;
+    color: $text;
+
+    .user-account {
+      margin-left: 0.875rem;
+      line-height: 1.4;
+
+      .user-account__username {
+        font-size: 1rem;
+        color: $text;
+      }
+
+      .user-account__manage-btn {
+        font-size: 0.75rem;
+        color: $text-light;
+        padding: 0;
+        height: auto;
+
+        &:hover {
+          background-color: transparent;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .context-menu__row {
+    position: relative;
+    display: flex;
+    padding: 0.25rem 0.875rem;
+    // background-color: red;
+    border-radius: $border-radius-3;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $menu-highlight;
+    }
+
+    a {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: $text-lightest;
+      font-size: 0.875rem;
+    }
+
+    .context-menu-icon {
+      fill: $text;
+      margin-right: 0.75rem;
+    }
+  }
+
+  .context-menu__separator {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0.875rem 0;
+  }
+}

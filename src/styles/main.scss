@@ -1,0 +1,90 @@
+@use "./abstract.scss" as *;
+
+/* border box */
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  // height: 100vh;
+  margin: 0;
+  font: 16px/1.7 $font;
+  color: $text;
+  background-color: $bg-color;
+  // background-color: #0c0c0e;
+  // background: linear-gradient(
+  //   to bottom left,
+  //   #040304,
+  //   #3d182f,
+  //   #7d1c46,
+  //   #c21d49,
+  //   #ff3636
+  // );
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  // padding: 0.5rem 3rem;
+  min-height: 100vh;
+  position: relative;
+}
+
+.page-wrapper {
+  padding: 0.5rem 3rem;
+  // height: 400vh;
+}
+.page-wrapper--sidebar {
+  position: relative;
+  min-height: 100vh;
+  left: 260px;
+  width: calc(100% - 260px);
+  transition: all 0.5s ease;
+  // padding: 0.5rem 3rem;
+}
+.sidebar.close ~ .page-wrapper--sidebar {
+  left: 100px;
+  width: calc(100% - 100px);
+}
+
+.page-content-wrapper {
+  padding: 0.5rem 3rem;
+}
+
+.temp {
+  margin: 2rem;
+  width: 40%;
+  height: 400vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.tooltip {
+  border-radius: $border-radius-3 !important;
+}
+
+@media (max-width: 1440) {
+}
+@media (max-width: 1024px) {
+}
+@media (max-width: 768px) {
+  .page-wrapper--sidebar {
+    left: 0;
+    width: 100%;
+  }
+  .sidebar.close ~ .page-wrapper--sidebar {
+    left: 0;
+    width: 100%;
+  }
+  .page-content-wrapper {
+    padding: 0.5rem 1.5rem;
+    margin-bottom: 4rem;
+  }
+}
+@media (max-width: 484px) {
+}

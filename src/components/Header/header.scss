@@ -1,0 +1,61 @@
+@use "../../styles/abstract.scss" as *;
+
+.mini-header-wrapper {
+  height: $header-height;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mini-header__actions {
+  display: flex;
+  align-items: center;
+
+  .action__desc {
+    margin-right: 1rem;
+  }
+}
+
+.header-wrapper {
+  position: sticky;
+  background-color: $bg-color;
+  z-index: 10;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 90px;
+  padding: 0 3rem;
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    // width: 300px;
+    // flex-grow: 2;
+    width: 250px;
+    margin-left: 0.5rem;
+
+    .badge-wrapper {
+      margin-right: 1.5rem;
+      cursor: pointer;
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .btn-header-login {
+      width: 120px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header-wrapper {
+    padding: 0 1.5rem;
+  }
+}
