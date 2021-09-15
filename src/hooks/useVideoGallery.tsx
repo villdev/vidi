@@ -4,7 +4,7 @@ import axios from "../axios";
 import { filterTags } from "../utils/filterTags";
 import { VideosType } from "../type/VideoGallery.type";
 
-const useVideoGallery = () => {
+const useVideoGallery = (initialResults: number) => {
   const [videos, setVideos] = useState<VideosType>([]);
   const [filteredVideos, setFilteredVideos] = useState<VideosType>([]);
   const [tags, setTags] = useState<Array<string>>([]);
@@ -19,7 +19,7 @@ const useVideoGallery = () => {
       const {
         status,
         data: { videos: serverVideos, totalResults },
-      } = await axios.get("/videos?page=1&results=12");
+      } = await axios.get(`/videos?page=1&results=${initialResults}`);
       if (status === 200) {
         setVideos(serverVideos);
         setTotalResults(totalResults);
@@ -39,7 +39,7 @@ const useVideoGallery = () => {
       const {
         status,
         data: { videos: serverVideos },
-      } = await axios.get(`/videos?page=${pgNo}&results=12`);
+      } = await axios.get(`/videos?page=${pgNo}&results=${initialResults}`);
       if (status === 200) {
         // if (serverVideos.length === 0) {
         //   setHasMore(false);

@@ -12,7 +12,7 @@ export default function Sidebar() {
   return (
     <div
       className={isOpen ? "sidebar" : "sidebar close"}
-      onMouseEnter={() => setIsOpen(true)}
+      // onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
       <div className="logo-details">
@@ -21,7 +21,7 @@ export default function Sidebar() {
       </div>
       <div className="sidebar-separator--x"></div>
       <ul className="nav-links">
-        <li className={activeMenu === "/" ? "active" : ""}>
+        <li title={"home"} className={activeMenu === "/" ? "active" : ""}>
           <Link to="/">
             <Svg
               customClass="link_icon"

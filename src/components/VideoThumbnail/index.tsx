@@ -6,13 +6,13 @@ import { getDuration } from "../../utils/getDuration";
 import ClampLines from "react-clamp-lines";
 import { Menu, MenuItem, MenuButton } from "@szhsin/react-menu";
 import Svg from "../Svg";
-import { VideoType } from "../../type/VideoGallery.type";
+import { GalleryVideoType } from "../../type/VideoGallery.type";
 import ReactTooltip from "react-tooltip";
 
 import "@szhsin/react-menu/dist/index.css";
 import "./videoThumbnail.scss";
 
-export default function VideoThumbnail({ video }: { video: VideoType }) {
+export default function VideoThumbnail({ video }: { video: GalleryVideoType }) {
   const [isMouseOver, setIsMouseOver] = useState(false);
 
   const toggleHoverEffect = () => {
@@ -25,7 +25,7 @@ export default function VideoThumbnail({ video }: { video: VideoType }) {
       onMouseEnter={toggleHoverEffect}
       onMouseLeave={toggleHoverEffect}
     >
-      <Link to="/">
+      <Link to={`/watch?v=${video._id}`}>
         <div className="video-thumbnail">
           <img
             src={getThumbnailUrl(video.thumbnailURL)}

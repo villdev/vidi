@@ -9,15 +9,19 @@ import { Toaster } from "react-hot-toast";
 
 import { Login, Register } from "./pages/AuthPage";
 import Home from "./pages/HomePage";
+import Watch from "./pages/WatchPage";
 import { SkeletonArticle, SkeletonProfile } from "./components/skeletons";
 import Button from "./components/Button";
 import PrivateRoute from "./components/PrivateRoute";
 import Sidebar from "./components/Sidebar";
 
 import ReactTooltip from "react-tooltip";
+// import Modal from "react-modal";
 
 import { useAuth } from "./context/AuthProvider";
 import "./styles/main.scss";
+
+// Modal.setAppElement("#root");
 
 const Account = () => {
   const {
@@ -45,23 +49,9 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/watch" element={<Watch />} />
           <PrivateRoute path="/account" element={<Account />} />
         </Routes>
-        {/* <Login /> */}
-        {/* <Register /> */}
-        {/* <Logo />
-        <div className="temp">
-          <Button type={"primary"} size={"md"} to={"/test"}>
-            Primary Button
-          </Button>
-          <Button type={"secondary"} size={"md"} to={"/test"}>
-            Secondary Button
-          </Button>
-          <Button type={"link"} size={"md"} to={"/test"}>
-            Link button
-          </Button>
-        </div> */}
-        {/* <SkeletonArticle theme={"dark"} /> */}
       </Router>
       <Toaster position="bottom-center" />
     </div>

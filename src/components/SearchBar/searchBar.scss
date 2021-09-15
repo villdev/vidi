@@ -22,8 +22,8 @@
   .search-bar__input {
     height: 56px;
     background-color: $menu-color;
-    border: 0;
-    border-radius: $border-radius;
+    border: 1px solid rgba($color: #ffffff, $alpha: 0.1);
+    border-radius: $border-radius-2;
     padding: 0 3.5rem;
     font-size: 1rem;
     font-weight: 400;
@@ -35,9 +35,18 @@
     margin-left: 100px;
 
     &:focus-visible {
-      // outline: 1px solid $primary-darkest-color;
-      outline: 1px solid $text-light;
+      border: 1px solid rgba($color: #ffffff, $alpha: 0.2);
+      box-shadow: rgba(120, 120, 120, 0.4) 0px 1px 5px 0px,
+        rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+      outline: none;
     }
+  }
+  /* clears the ‘X’ from Chrome */
+  .search-bar__input::-webkit-search-decoration,
+  .search-bar__input::-webkit-search-cancel-button,
+  .search-bar__input::-webkit-search-results-button,
+  .search-bar__input::-webkit-search-results-decoration {
+    display: none;
   }
 
   .search-bar__close {

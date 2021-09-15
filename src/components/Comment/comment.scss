@@ -1,0 +1,218 @@
+@use "../../styles//abstract.scss" as *;
+
+.video-comments-wrapper {
+  margin-top: 3rem;
+  background-color: $menu-color;
+  border-radius: $border-radius-3;
+  padding: 1.5rem;
+
+  .video-comments-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .header-title {
+      color: $text-light;
+      .bold {
+        color: $text;
+      }
+    }
+
+    .header-action {
+      button {
+        border: none;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        color: $text;
+        cursor: pointer;
+        font-family: $font;
+      }
+
+      .sort-menu {
+        background-color: $menu-highlight;
+        color: $text;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        border-radius: $border-radius-3;
+        .sort-menu__item {
+          border-radius: $border-radius-3;
+          font-size: 0.875rem;
+          &:hover {
+            background-color: $menu-light;
+          }
+        }
+        .sort-menu__item.active {
+          // color: $text;
+          // font-weight: 600;
+          text-decoration: underline;
+        }
+      }
+
+      .icon {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+.add-comment-wrapper {
+  position: relative;
+  width: 100%;
+  // padding: 1rem;
+  margin: 2rem 0;
+}
+.add-comment-wrapper.reply {
+  margin: 0rem 0;
+
+  .comment-actions {
+    margin: 0.85rem 0 0.2rem 0;
+  }
+}
+
+.comment-input-wrapper {
+  display: flex;
+  align-items: flex-start;
+
+  .comment-input {
+    margin-left: 1rem;
+    font-family: $font;
+    // height: 60px;
+    padding: 0.75rem 1rem;
+    flex-grow: 1;
+    color: $text;
+    border: none;
+    resize: none;
+    word-wrap: break-word;
+    border-radius: $border-radius-3;
+    background-color: transparent;
+    border: 1px solid transparent;
+    // border: 1px solid $menu-highlight;
+    background-color: $menu-light;
+
+    &:focus {
+      outline: none;
+      box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+        rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+      border: 1px solid $menu-highlight;
+    }
+  }
+}
+
+.comment-actions {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 1rem 0;
+
+  // button {
+  //   cursor: pointer;
+  //   border: none;
+  //   background-color: ;
+  // }
+}
+
+.user-comment-wrapper {
+  display: flex;
+  font-size: 0.875rem;
+
+  .channel-avatar {
+    a {
+      text-decoration: none;
+      color: $text;
+    }
+  }
+
+  .user-comment {
+    margin-left: 1rem;
+
+    .username {
+      font-weight: 600;
+      // margin-bottom: 0.2rem;
+
+      a {
+        text-decoration: none;
+        color: $text;
+      }
+    }
+    .comment {
+      .clamp-lines__button {
+        background-color: $menu-light;
+        border: none;
+        color: $text-light;
+        padding: 0.25rem 0.5rem;
+        border-radius: $border-radius-4;
+        cursor: pointer;
+        margin-top: 0.2rem;
+
+        &:hover {
+          color: $text;
+        }
+      }
+    }
+
+    .actions {
+      display: flex;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+
+      .comment-like {
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: 0.1rem 0.5rem;
+        border-radius: $border-radius-4;
+        border: 1px solid transparent;
+
+        .icon {
+          fill: $text;
+          margin-right: 0.2rem;
+        }
+
+        span {
+          font-weight: 400;
+          color: $text-light;
+        }
+
+        &:hover {
+          background-color: $menu-light;
+        }
+      }
+
+      .comment-like.active {
+        // background-color: $menu-light;
+        border: 1px solid $menu-light;
+        .icon {
+          fill: $primary-color;
+        }
+      }
+
+      .comment-reply {
+        font-weight: 600;
+        color: $primary-color;
+        margin-left: 0.5rem;
+        cursor: pointer;
+        padding: 0.1rem 0.5rem;
+        border-radius: $border-radius-4;
+        &:hover {
+          background-color: $menu-light;
+        }
+      }
+      .comment-date {
+        color: $text-light;
+        margin-left: 1rem;
+      }
+    }
+  }
+}
+
+.replies-wrapper {
+  margin-left: calc(48px + 1rem);
+  .replies__header {
+    .toggle-replies-btn {
+      padding: 0;
+      height: 2rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+}

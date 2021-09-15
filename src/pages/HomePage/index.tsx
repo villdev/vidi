@@ -1,11 +1,11 @@
 import React from "react";
 import { MainHeader } from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-import TagCarousel from "../../components/TagCarousel";
+// import TagCarousel from "../../components/TagCarousel";
 import VideoGallery from "../../components/VideoGallery";
 import useVideoGallery from "../../hooks/useVideoGallery";
 
-export default function Home() {
+const Home = () => {
   const {
     videos,
     tags,
@@ -14,7 +14,7 @@ export default function Home() {
     totalResults,
     currentTag,
     setCurrentTag,
-  } = useVideoGallery();
+  } = useVideoGallery(12);
 
   return (
     <>
@@ -27,19 +27,25 @@ export default function Home() {
               <VideoGallery />
             )
           } */}
-          <TagCarousel
+          {/* <TagCarousel
             tags={tags}
             currentTag={currentTag}
             setCurrentTag={setCurrentTag}
-          />
+          /> */}
           <VideoGallery
             status={status}
             videos={videos}
             getNextPage={getNextPage}
             totalResults={totalResults}
+            tags={tags}
+            currentTag={currentTag}
+            setCurrentTag={setCurrentTag}
+            initialResults={12}
           />
         </div>
       </div>
     </>
   );
-}
+};
+
+export default Home;

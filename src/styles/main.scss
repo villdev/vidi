@@ -3,6 +3,7 @@
 /* border box */
 html {
   box-sizing: border-box;
+  color: $text;
 }
 *,
 *:before,
@@ -53,7 +54,8 @@ body {
 }
 
 .page-content-wrapper {
-  padding: 0.5rem 3rem;
+  // padding: 0.5rem 3rem;
+  padding: 1rem 3rem;
 }
 
 .temp {
