@@ -3,20 +3,41 @@ import Modal from "react-modal";
 import Button from "../Button";
 import Svg from "../Svg";
 import { debounce } from "ts-debounce";
+import { useAuth } from "../../context/AuthProvider";
+import axios from "../../axios";
+import { successNotify } from "../../utils/toast";
 
 Modal.setAppElement("#root");
 
 export default function PlaylistModal({
   modalIsOpen,
   setModalIsOpen,
-  playlists,
+  presentInWatchLater,
+  setPresentInWatchLater
+  currentPlaylistsStatus,
+  setCurrentPlaylistsStatus
+  videoId,
 }) {
+  const {
+    user: { id: userId, watchLaterListId },
+  } = useAuth();
+
+  console.log(watchLaterListId);
+
   const [playlistQuery, setPlaylistQuery] = useState("");
+  const watchLaterPlaylist = {
+    title: "Watch Later",
+    id: watchLaterListId,
+    isVideoPresent: presentInWatchLater,
+  };
+
+  const playlists = [watchLaterPlaylist, ...currentPlaylistsStatus];
+
   const [filteredPlaylists, setFilteredPlaylist] = useState(playlists);
 
   const filterPlaylists = (query: string) => {
     const filtered = playlists.filter((playlist) =>
-      playlist.name.includes(query)
+      playlist.title.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredPlaylist(filtered);
   };
@@ -26,6 +47,52 @@ export default function PlaylistModal({
   const updateQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPlaylistQuery(e.target.value);
     debouncedFilter(e.target.value);
+  };
+
+  const crudPlaylist = async (playlistId, actionType) => {
+    const endpoint = `/playlists/${playlistId}`;
+
+    const postBody = { videoId, userId, action: { type: actionType } };
+
+    console.log(postBody);
+
+    try {
+      const response = await axios.post(endpoint, postBody);
+      if (response.status === 200) {
+        console.log(response.data);
+        successNotify(response.data.message);
+        if(actionType === "ADD_VIDEO") {
+
+          setFilteredPlaylist(allPl => {
+            return allPl.map(p => {
+              if(p.id === playlistId)
+                return {
+                  ...p, isVideoPresent: true,
+                }
+                else 
+                return p;
+            })
+          })
+        }
+        else if(actionType === "REMOVE_VIDEO") {
+          setFilteredPlaylist(allPl => {
+            return allPl.map(p => {
+              if(p.id === playlistId)
+                return {
+                  ...p, isVideoPresent: false,
+                }
+                else 
+                return p;
+            })
+          })
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    if (actionType === "ADD_VIDEO") {
+    }
   };
 
   return (
@@ -55,12 +122,20 @@ export default function PlaylistModal({
           />
           <div className="content-row content-playlists-wrapper">
             <div className="content-playlists__title">Playlists</div>
-            {filteredPlaylists.map((pl) => {
+            {filteredPlaylists.map(({ title, id, isVideoPresent }) => {
               return (
-                <div className="content-playlists__row">
+                <div key={id} className="content-playlists__row">
                   <label className="input-checkbox">
-                    <input type="checkbox" />
-                    <span className="text-black">{pl.name}</span>
+                    <input
+                      type="checkbox"
+                      checked={isVideoPresent}
+                      onChange={() =>
+                        isVideoPresent
+                          ? crudPlaylist(id, "REMOVE_VIDEO")
+                          : crudPlaylist(id, "ADD_VIDEO")
+                      }
+                    />
+                    <span className="text-black">{title}</span>
                   </label>
                 </div>
               );

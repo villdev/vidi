@@ -29,7 +29,7 @@ export default function Watch() {
     setCurrentTag,
   } = useVideoGallery(6);
 
-  const { video, status } = useVideo(videoId);
+  const { video, userVideoDetails, status } = useVideo(videoId);
 
   useEffect(() => {
     console.log("------debug: working or not?", videoId);
@@ -40,6 +40,8 @@ export default function Watch() {
     // setVideoId(videoIdQuery);
   }, [videoId]);
 
+  useEffect(() => {}, []);
+
   return (
     <>
       <Sidebar />
@@ -47,7 +49,9 @@ export default function Watch() {
         <MainHeader />
         <div className="page-content-wrapper watch-content-wrapper">
           {status === "loading" && <SkeletonVideo theme={"dark"} />}
-          {status === "resolved" && <VideoPlayer video={video} />}
+          {status === "resolved" && (
+            <VideoPlayer video={video} userVideoDetails={userVideoDetails} />
+          )}
           <div className="video-recommendation">
             <VideoGallery
               status={galleryStatus}

@@ -39,4 +39,15 @@ export type VideoType = {
   updatedAt: string;
 };
 
+export type userVideoDetailsType = {
+  isVideoLiked: boolean;
+  isChannelFollowed: boolean;
+  isPresentInWatchLater: boolean;
+  playlistsStatus: Array<{
+    title: string;
+    id: string;
+    isVideoPresent: boolean;
+  }>;
+};
+
 export type VideosType = Array<GalleryVideoType>;

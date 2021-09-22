@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { VideoType } from "../../type/VideoGallery.type";
+import { VideoType, userVideoDetailsType } from "../../type/VideoGallery.type";
 import ReactPlayer from "react-player/youtube";
 import { parseJSON, formatDistanceToNow } from "date-fns";
 import ReactTooltip from "react-tooltip";
@@ -26,10 +26,7 @@ import Comments from "../Comment";
 import Modal from "react-modal";
 // import { debounce } from "ts-debounce";
 import PlaylistModal from "../Modal/PlaylistModal";
-
-// type PropType = {
-//   videoId: string | null;
-// };
+import axios from "../../axios";
 
 const playlists = [{ name: "Playlist name" }, { name: "Playlist 2" }];
 
@@ -37,19 +34,59 @@ Modal.setAppElement("#root");
 
 type PropType = {
   video: VideoType | null;
-  // status: string;
+  userVideoDetails: userVideoDetailsType;
 };
 
 const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis);
 
-export default function VideoPlayer({ video }: PropType) {
+export default function VideoPlayer({
+  video,
+  userVideoDetails: {
+    isVideoLiked,
+    isChannelFollowed,
+    isPresentInWatchLater,
+    playlistsStatus,
+  },
+}: PropType) {
   const {
-    user: { id: userId, avatar, username },
+    user: { id: userId, avatar, username, likedListId },
   } = useAuth();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [showFullDescription, setShowFullDescription] = useState(false);
+
+  const [videoLiked, setVideoLiked] = useState(isVideoLiked);
+  const [likeCount, setLikeCount] = useState(video?.likes.length);
+  const [channelFollowed, setChannelFollowed] = useState(isChannelFollowed);
+  const [presentInWatchLater, setPresentInWatchLater] = useState(
+    isPresentInWatchLater
+  );
+  const [currentPlaylistsStatus, setCurrentPlaylistsStatus] = useState(
+    playlistsStatus
+  );
+
+  const toggleVideoLike = async () => {
+    try {
+      console.log(likedListId);
+      const postBody = {
+        likedPlaylistId: likedListId,
+      };
+      const {
+        status,
+        data: { message, isLiked },
+      } = await axios.post(`/videos/like/${video?._id}/${userId}`, postBody);
+      setVideoLiked(isLiked);
+      const newLikeCount = isLiked
+        ? likeCount + 1
+        : likeCount > 0
+        ? likeCount - 1
+        : 0;
+      setLikeCount(newLikeCount);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="video-player-wrapper">
@@ -75,15 +112,16 @@ export default function VideoPlayer({ video }: PropType) {
             <div className="video-actions">
               <div
                 className={
-                  true
+                  videoLiked
                     ? "video-action video-actions__likes active"
                     : "video-action video-actions__likes"
                 }
-                data-tip={true ? "Dislike" : "Like"}
+                data-tip={videoLiked ? "Dislike" : "Like"}
                 data-for={"videoActions"}
+                onClick={toggleVideoLike}
               >
                 <Svg icon="like" customClass="like-icon" />
-                <span>70</span>
+                <span>{likeCount}</span>
               </div>
               <div
                 onClick={() => setModalIsOpen(true)}
@@ -162,7 +200,12 @@ export default function VideoPlayer({ video }: PropType) {
           <PlaylistModal
             modalIsOpen={modalIsOpen}
             setModalIsOpen={setModalIsOpen}
-            playlists={playlists}
+            // playlists={playlists}
+            presentInWatchLater={presentInWatchLater}
+            setPresentInWatchLater={setPresentInWatchLater}
+            currentPlaylistsStatus={currentPlaylistsStatus}
+            setCurrentPlaylistsStatus={setCurrentPlaylistsStatus}
+            videoId={video._id}
           />
 
           <ReactTooltip
